@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DBConfig {
-    
+
     private static final String DBDRIVER="com.mysql.jdbc.Driver";
     private static final String DBURL="jdbc:mysql://localhost:3306/india_db";
     private static final String DBUSERNAME="root";
