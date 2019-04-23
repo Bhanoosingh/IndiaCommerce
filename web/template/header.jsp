@@ -1,5 +1,31 @@
-<!DOCTYPE jsp>
-<jsp lang="zxx">
+<%@page import="com.indiaCommerce.config.DBConfig"%>
+<%@page import="java.sql.ResultSet"%>
+<%
+    String btn1=request.getParameter("btn1");
+    ResultSet user=null;
+    
+if(btn1!=null){
+    String username=request.getParameter("Name");
+    String password=request.getParameter("password");
+    
+    user=DBConfig.executeQuery("SELECT * FROM `login_details` where username='"
+            +username+"' and PASSWORD='"+password+"' limit 1");
+    
+    
+    user.first();
+    if(user.getRow()==1){
+        session.setAttribute("user", user);
+        response.sendRedirect("index.jsp");
+    }
+    
+}
+String logout=request.getParameter("logout");
+if(logout!=null){
+    session.setAttribute("user", null);
+}
+%>
+<!DOCTYPE html>
+<html lang="zxx">
 
 <head>
 	<title>India Ecommerce  | Home </title>
@@ -60,6 +86,10 @@
 					<li>
 						<span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
 					</li>
+                                                                                <% 
+                                                                                    user=(ResultSet)session.getAttribute("user") ;
+                                                                                    if(user==null){
+                                                                                %>
 					<li>
 						<a href="#" data-toggle="modal" data-target="#myModal1">
 							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
@@ -68,6 +98,18 @@
 						<a href="#" data-toggle="modal" data-target="#myModal2">
 							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
 					</li>
+                                                                                <% }
+                                                                                        else{
+                                                                                            %>
+                                                                                        <li>
+						<a href="#" >
+                                                                                                                            <span class="fa fa-unlock-alt" aria-hidden="true"></span> <% out.print(user.getString("username")); %> </a>
+					</li>
+					<li>
+						<a href="?logout" >
+							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Logout  </a>
+					</li>
+                                                                                <% }%>
 				</ul>
 				<!-- //header lists -->
 				<!-- search -->
@@ -125,7 +167,7 @@
 							<div class="styled-input">
 								<input type="password" placeholder="Password" name="password" required="">
 							</div>
-							<input type="submit" value="Sign In">
+							<input type="submit" name="btn1" value="Sign In">
 						</form>
 						<div class="clearfix"></div>
 					</div>
