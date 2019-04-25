@@ -246,6 +246,34 @@ if(logout!=null){
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
+                                                                <!-- To check wether user is user or admin -->
+                                                                                        <% if(user!=null){              //To avoid null pointer exception
+                                                                                                                     if(user.getString("admin").equalsIgnoreCase("admin")){%>
+                                                                                       <li class="">
+									<a class="nav-stylehead" href="manageProduct.jsp">Manage Products</a>
+								</li>
+					<li class="">
+									<a class="nav-stylehead" href="#">Manage Users</a>
+								</li>
+                                                                                <% } 
+                                                                                    else{
+                                                                                %>
+                                                                                    <li class="">
+									<a class="nav-stylehead" href="#">View All Products</a>
+								</li>
+                                                                
+                                                                                    <li class="">
+									<a class="nav-stylehead" href="#">Ice Creams</a>
+								</li>
+                                                                
+                                                                                    <li class="">
+									<a class="nav-stylehead" href="#">Books</a>
+								</li>
+                                                                
+                                                                                    <li class="">
+									<a class="nav-stylehead" href="#">Electronics</a>
+								</li>
+                                                                                <%} }%>
 								<li class="">
 									<a class="nav-stylehead" href="about.jsp">About Us</a>
 								</li>
